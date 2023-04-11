@@ -1,3 +1,18 @@
+# Streaker
+Small personal app to keep up with my personal streaks on stuff I want to do daily / weekly
+
+# TO DO:
+- launch on vercel for ease of use
+- markdown viewer
+- press enter to add item
+- remove item of list
+- time tracker : track when a day passed and reset the streak in the item
+- weekly tasks : track tasks that I want to do x times in a week
+- some styles would go well
+
+
+# WARNING: react stuff below
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
