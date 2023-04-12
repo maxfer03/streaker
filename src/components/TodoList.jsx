@@ -36,9 +36,9 @@ const TodoList = () => {
 
 
   return ( <Box display={'flex'} flexDir={'column'} alignItems={'center'}
-   w={'25%'}
+   w={{sm: '100%', md: '50%', lg: '25%'}}
    borderWidth={'0px'} borderColor={'black'}>
-    <Heading m={'25px 0px'}>Title</Heading>
+    <Heading mb={'25px'}>Streaker</Heading>
     <List display={'flex'} flexDir={'column'} gap={'10px'}>
       {items.map((item, idx) => { return (
         <ListItem key={idx} display={'flex'} alignItems={'center'} gap={'10px'}>
