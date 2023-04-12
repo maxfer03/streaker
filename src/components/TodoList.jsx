@@ -26,10 +26,10 @@ const TodoList = () => {
     });
   };
 
-  const plusOne = (streak, idx) => {
+  const plusOne = (idx) => {
     setItems((prevItems) => {
       const updatedItems = [...prevItems];
-      updatedItems[idx] = { ...updatedItems[idx], streak: streak++ };
+      updatedItems[idx] = { ...updatedItems[idx], streak: updatedItems[idx].streak + 1 };
       return updatedItems;
     });
   }
@@ -42,7 +42,7 @@ const TodoList = () => {
     <List display={'flex'} flexDir={'column'} gap={'10px'}>
       {items.map((item, idx) => { return (
         <ListItem key={idx} display={'flex'} alignItems={'center'} gap={'10px'}>
-         <Input value={item.name} onChange={(e) => handleChange(e, idx)}/> <Box>{item.streak}</Box> <Button onClick={() => plusOne(item.streak, idx)}>+</Button>
+         <Input value={item.name} onChange={(e) => handleChange(e, idx)}/> <Box>{item.streak}</Box> <Button onClick={() => plusOne(idx)}>+</Button>
         </ListItem>
       )})}
     </List>

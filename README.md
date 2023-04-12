@@ -2,7 +2,7 @@
 Small personal app to keep up with my personal streaks on stuff I want to do daily / weekly
 
 # TO DO:
-- launch on vercel for ease of use
+- ~~launch on vercel for ease of use~~ 11/3
 - markdown viewer
 - press enter to add item
 - remove item of list
