@@ -4,6 +4,8 @@ Small personal app to keep up with my personal streaks on stuff I want to do dai
 # TO DO:
 - time tracker : track when a day passed and reset the streak in the item
 - weekly tasks : track tasks that I want to do x times in a week
+- Track the day the task was added
+- Add a max score or record streak
 - some styles would go well
 
 # WARNING: react stuff below
