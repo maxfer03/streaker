@@ -43,11 +43,27 @@ function App() {
   }
 
   const checkWeek = () => {
-    if(localStorage.getItem('week')) {
-      console.log('olis')
+    const today = new Date();
+    const weekNumber = getWeek(today);
+    if(localStorage.getItem('week') && localStorage.getItem('data') && list.length > 0) {
+      // let storageWeek = localStorage.getItem('week')
+      // let cleanWeeks = list.map(item => {
+      //   if(item.type === 'weekly'){
+      //     console.log('imma change tha weekly bruv')
+      //     return {
+      //       ...item,
+      //       weekData: {
+      //         ...item.weekData,
+      //         week: [0,0,0,0,0,0,0]
+      //       }
+      //     }
+      //   }
+      //   return item;
+      // })
+      // console.log('cleany', cleanWeeks)
+      // return setList(cleanWeeks)
     } else {
-      const today = new Date();
-      const weekNumber = getWeek(today);
+      
       console.log('Week number:', weekNumber);
       localStorage.setItem('week', weekNumber)
     }

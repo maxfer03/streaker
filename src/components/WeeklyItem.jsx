@@ -2,18 +2,12 @@ import { Box, Button, Heading, Input, List, ListItem } from "@chakra-ui/react";
 import { listAtom } from "./state/atoms";
 import { useRecoilState } from "recoil";
 import ItemBtns from "./ItemBtns";
-
+import { wait, today} from "./utils/functions";
+import { WEEKDAYS } from "./utils/const";
 const WeeklyItem = ({idx}) => {
   const [items, setItems] = useRecoilState(listAtom)
-  const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
-  function wait() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 5);
-    });
-  }
+
 
   const handleEnter = async (e) => {
     if (e.keyCode === 13) {
@@ -35,21 +29,18 @@ const WeeklyItem = ({idx}) => {
     });
   };
 
-  const today = () => {
-    const today = new Date();
-    const dayOfWeek = weekdays[today.getDay()];
-    return dayOfWeek
-  }
 
   return ( 
     <ListItem mb={'15px'} position={'relative'} id={`list-item-${idx}`} key={idx} display={'flex'} alignItems={'center'} gap={'10px'}>
         <Input w={'full'}  onKeyDown={(e) => handleEnter(e)} value={items[idx].name} onChange={(e) => handleChange(e, idx)}/>
-        <Box h={'1/2'} position={'absolute'} top={'42.5px'}
+        <Box className="weekdays" h={'1/2'} position={'absolute'} top={'42.5px'}
         display={'flex'} gap={'5px'}
         >
           {Array.from({ length: 7 }, (_, i) => 
-            <Box key={i} h='20px' w={'20px'} rounded={'full'}
-            borderColor={weekdays.indexOf(today()) === i ? "blue.200" : 'gray.200'} borderWidth={'1px'}/>
+            <Box className={`weekday ${items[idx].weekData.week[i] === 1 ? 'active' : ''}`} key={i} h='20px' w={'20px'} rounded={'full'}
+            borderColor={WEEKDAYS.indexOf(today()) === i ? "blue.200" : 'gray.200'} borderWidth={'1px'}
+            bg={ items[idx].weekData.week[i] === 1 ? 'green.200' : ''}
+            />
           )}
         </Box>
       <Box w={'100px'}

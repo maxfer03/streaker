@@ -1,6 +1,9 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Box } from "@chakra-ui/react";
 import { listAtom } from "./state/atoms";
 import { useRecoilState } from "recoil";
+import { wait, today} from "./utils/functions";
+import { WEEKDAYS } from "./utils/const";
+import { AddIcon, CloseIcon, RepeatIcon } from "@chakra-ui/icons";
 
 const ItemBtns = ({idx, type}) => {
   
@@ -19,20 +22,33 @@ const ItemBtns = ({idx, type}) => {
       });
     } else if (type === 'weekly') {
       setItems((prevItems) => {
-        const updatedItems = [...prevItems];
+        let updatedItems = [...prevItems];
         let updateEpoch = Date.now()
         // let timeDeltaEpoch = updateEpoch - updatedItems[idx].lastUpdate
         // let timeDelta = new Date(timeDeltaEpoch)
         // console.log(timeDelta.getSeconds())
-        if (updatedItems[idx].weekData.weekStreak === updatedItems[idx].weekData.minObj -1) {
-        updatedItems[idx] = { ...updatedItems[idx], streak: updatedItems[idx].streak + 1, };
+        const nextStreakVal = updatedItems[idx].weekData.weekStreak + 1
+        const weekMin = updatedItems[idx].weekData.minObj
+        if (nextStreakVal % weekMin === 0) {
+          console.log('this week:::', items[idx])
+          updatedItems[idx] = { ...updatedItems[idx], streak: updatedItems[idx].streak + 1 };
+
+          console.log('this updatedItems:::', updatedItems[idx])
+
         }
+        const todayIndex = WEEKDAYS.indexOf(today())
+        let updatedWeek = [...updatedItems[idx].weekData.week]
+        updatedWeek[todayIndex] = 1
+        console.log('week:', updatedWeek)
         updatedItems[idx] = { ...updatedItems[idx],  
           weekData: { 
             ...updatedItems[idx].weekData,
             weekStreak: updatedItems[idx].weekData.weekStreak + 1,
+            week: nextStreakVal % weekMin === 0 ? [0, 0, 0, 0, 0, 0, 0] : updatedWeek
           },
-          lastUpdate: updateEpoch };
+          lastUpdate: updateEpoch 
+        };
+        
 
         return updatedItems;
       });
@@ -63,11 +79,13 @@ const ItemBtns = ({idx, type}) => {
     });
   }
   return ( 
-    <>
-    <Button onClick={() => plusOne(idx, type)}>+</Button>
-      {/* <Button onClick={() => reset(idx)}>O</Button> */}
-      <Button onClick={() => remove(idx)}>x</Button>
-    </>
+    <Box pos={'relative'} display={'flex'} justifyContent={'space-between'}>
+      <Button w={'10%'} onClick={() => plusOne(idx, type)}> <AddIcon/> </Button>
+      <Button w={'10%'} onClick={() => remove(idx)}> <CloseIcon/> </Button>
+      <Button w={'10%'} onClick={() => reset(idx)}
+      pos={'absolute'} right={'-75px'}
+      > <RepeatIcon/> </Button>
+    </Box>
    );
 }
  
