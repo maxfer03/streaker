@@ -31,37 +31,37 @@ function App() {
       localStorage.setItem('data', JSON.stringify(list))
     }
 
-    checkWeek()
+    // checkWeek()
   })
 
-  const getWeek = (date) => {
-    const onejan = new Date(date.getFullYear(), 0, 1);
-    return Math.ceil(((date - onejan) / 86400000 + onejan.getDay() + 1) / 7);
-  }
+  // const getWeek = (date) => {
+  //   const onejan = new Date(date.getFullYear(), 0, 1);
+  //   return Math.ceil(((date - onejan) / 86400000 + onejan.getDay() + 1) / 7);
+  // }
 
-  const checkWeek = () => {
-    const today = new Date();
-    const weekNumber = getWeek(today);
-    if(localStorage.getItem('week') && localStorage.getItem('data') && list.length > 0) {
-      // let storageWeek = localStorage.getItem('week')
-      // let cleanWeeks = list.map(item => {
-      //   if(item.type === 'weekly'){
-      //     return {
-      //       ...item,
-      //       weekData: {
-      //         ...item.weekData,
-      //         week: [0,0,0,0,0,0,0]
-      //       }
-      //     }
-      //   }
-      //   return item;
-      // })
-      // return setList(cleanWeeks)
-    } else {
+  // const checkWeek = () => {
+  //   const today = new Date();
+  //   const weekNumber = getWeek(today);
+  //   if(localStorage.getItem('week') && localStorage.getItem('data') && list.length > 0) {
+  //     // let storageWeek = localStorage.getItem('week')
+  //     // let cleanWeeks = list.map(item => {
+  //     //   if(item.type === 'weekly'){
+  //     //     return {
+  //     //       ...item,
+  //     //       weekData: {
+  //     //         ...item.weekData,
+  //     //         week: [0,0,0,0,0,0,0]
+  //     //       }
+  //     //     }
+  //     //   }
+  //     //   return item;
+  //     // })
+  //     // return setList(cleanWeeks)
+  //   } else {
       
-      localStorage.setItem('week', weekNumber)
-    }
-  }
+  //     localStorage.setItem('week', weekNumber)
+  //   }
+  // }
   
 
   const checkTimes = () => {
@@ -69,10 +69,22 @@ function App() {
       let lastUpdate = item.lastUpdate
       let now = Date.now()
       // let timeDeltaEpoch = new Date(now - lastUpdate)
+
+
       let timeDeltaEpoch = now - lastUpdate
+      // seconds!
       let timeDelta = timeDeltaEpoch / 1000
-      let twelveHrs = 60 * 60 * 24
-      if(timeDelta > twelveHrs) {
+      let threshold
+      if(item.type ==='daily'){
+        // threshold : 24 hours
+        threshold = 60 * 60 * 24
+      }
+      else if (item.type ==='weekly') {
+        // threshold : 7 days
+        threshold = 60 * 60 * 24 * 7
+
+      }
+      if(timeDelta > threshold) {
         let idx = list.indexOf(item)
         const updatedItems = [...list];
         updatedItems[idx] = { ...updatedItems[idx], streak: 0, lastUpdate: Date.now() };
