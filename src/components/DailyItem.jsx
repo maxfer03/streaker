@@ -20,7 +20,6 @@ const DailyItem = ({idx}) => {
       await wait();
       let lastIndex = items.length
       let lastItemInput = document.querySelector(`#list-item-${lastIndex} > input`)
-      console.log(lastItemInput)
       lastItemInput.focus()
     }
   }

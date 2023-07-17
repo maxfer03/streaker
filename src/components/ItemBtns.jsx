@@ -16,7 +16,6 @@ const ItemBtns = ({idx, type}) => {
         let updateEpoch = Date.now()
         // let timeDeltaEpoch = updateEpoch - updatedItems[idx].lastUpdate
         // let timeDelta = new Date(timeDeltaEpoch)
-        // console.log(timeDelta.getSeconds())
         updatedItems[idx] = { ...updatedItems[idx], streak: updatedItems[idx].streak + 1, lastUpdate: updateEpoch };
         return updatedItems;
       });
@@ -26,20 +25,16 @@ const ItemBtns = ({idx, type}) => {
         let updateEpoch = Date.now()
         // let timeDeltaEpoch = updateEpoch - updatedItems[idx].lastUpdate
         // let timeDelta = new Date(timeDeltaEpoch)
-        // console.log(timeDelta.getSeconds())
         const nextStreakVal = updatedItems[idx].weekData.weekStreak + 1
         const weekMin = updatedItems[idx].weekData.minObj
         if (nextStreakVal % weekMin === 0) {
-          console.log('this week:::', items[idx])
           updatedItems[idx] = { ...updatedItems[idx], streak: updatedItems[idx].streak + 1 };
 
-          console.log('this updatedItems:::', updatedItems[idx])
 
         }
         const todayIndex = WEEKDAYS.indexOf(today())
         let updatedWeek = [...updatedItems[idx].weekData.week]
         updatedWeek[todayIndex] = 1
-        console.log('week:', updatedWeek)
         updatedItems[idx] = { ...updatedItems[idx],  
           weekData: { 
             ...updatedItems[idx].weekData,
@@ -61,7 +56,6 @@ const ItemBtns = ({idx, type}) => {
       let updateEpoch = Date.now()
       let timeDeltaEpoch = updateEpoch - updatedItems[idx].lastUpdate
       let timeDelta = new Date(timeDeltaEpoch)
-      console.log(timeDelta.getSeconds())
       updatedItems[idx] = { ...updatedItems[idx], streak: 0, lastUpdate: updateEpoch };
       return updatedItems;
     });
