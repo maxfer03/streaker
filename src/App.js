@@ -21,15 +21,12 @@ function App() {
 
   useEffect(() => {
     if(localStorage.getItem('data') && list.length === 0) {
-      console.log('faffer')
       let storage = JSON.parse(localStorage.getItem('data'))
-      console.log(storage.length)
       if (storage.length > 0) {
         setList(storage)
       }
     }
     else {
-      console.log(list)
       checkTimes()
       localStorage.setItem('data', JSON.stringify(list))
     }
@@ -49,7 +46,6 @@ function App() {
       // let storageWeek = localStorage.getItem('week')
       // let cleanWeeks = list.map(item => {
       //   if(item.type === 'weekly'){
-      //     console.log('imma change tha weekly bruv')
       //     return {
       //       ...item,
       //       weekData: {
@@ -60,11 +56,9 @@ function App() {
       //   }
       //   return item;
       // })
-      // console.log('cleany', cleanWeeks)
       // return setList(cleanWeeks)
     } else {
       
-      console.log('Week number:', weekNumber);
       localStorage.setItem('week', weekNumber)
     }
   }
@@ -77,11 +71,9 @@ function App() {
       // let timeDeltaEpoch = new Date(now - lastUpdate)
       let timeDeltaEpoch = now - lastUpdate
       let timeDelta = timeDeltaEpoch / 1000
-      console.log('segundos pasados: ', timeDelta)
       let twelveHrs = 60 * 60 * 24
       if(timeDelta > twelveHrs) {
         let idx = list.indexOf(item)
-        console.log(idx)
         const updatedItems = [...list];
         updatedItems[idx] = { ...updatedItems[idx], streak: 0, lastUpdate: Date.now() };
         setList(updatedItems)
