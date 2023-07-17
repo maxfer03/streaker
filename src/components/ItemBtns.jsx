@@ -4,10 +4,40 @@ import { useRecoilState } from "recoil";
 import { wait, today} from "./utils/functions";
 import { WEEKDAYS } from "./utils/const";
 import { AddIcon, CloseIcon, RepeatIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
 
 const ItemBtns = ({idx, type}) => {
   
   const [items, setItems] = useRecoilState(listAtom)
+
+  const [disabled, setDisabled] = useState(false)
+
+  useEffect(() => {
+    if(type === 'daily') {
+
+      const timeSinceLastUpdate = (Date.now() - items[idx].lastUpdate) / 1000
+      const oneDay = 60 * 60 * 24
+      console.log(items[idx])
+      if (timeSinceLastUpdate >= oneDay || items[idx].streak === 0) {
+        setDisabled(false)
+      }
+      else {
+        setDisabled(true)
+      }
+    }
+    if(type === 'weekly') {
+      const daysSinceLastUpdate = ((Date.now() - items[idx].lastUpdate) / 1000) / 60 / 60 / 24
+      const secondsSinceLastUpdate = (Date.now() - items[idx].lastUpdate) / 1000
+      console.log(secondsSinceLastUpdate, daysSinceLastUpdate)
+      if (daysSinceLastUpdate >= 7 || items[idx].streak === 0) {
+        setDisabled(false)
+      }
+      else {
+        setDisabled(true)
+      }
+    }
+  }, [items])
+
 
   const plusOne = (idx, type) => {
     if (type === 'daily') {
@@ -57,6 +87,7 @@ const ItemBtns = ({idx, type}) => {
         return updatedItems;
       });
     }
+    
   }
 
   const reset = (idx) => {
@@ -86,7 +117,8 @@ const ItemBtns = ({idx, type}) => {
   }
   return ( 
     <Box pos={'relative'} display={'flex'} justifyContent={'space-between'}>
-      <Button w={'10%'} onClick={() => plusOne(idx, type)}> <AddIcon/> </Button>
+      <Button w={'10%'} isDisabled={disabled}
+ onClick={() => plusOne(idx, type)}> <AddIcon/> </Button>
       <Button w={'10%'} onClick={() => remove(idx)}> <CloseIcon/> </Button>
       <Button w={'10%'} onClick={() => reset(idx)}
       pos={'absolute'} right={'-75px'}
