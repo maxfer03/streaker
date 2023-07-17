@@ -76,6 +76,9 @@ function App() {
         let idx = list.indexOf(item)
         const updatedItems = [...list];
         updatedItems[idx] = { ...updatedItems[idx], streak: 0, lastUpdate: Date.now() };
+        if(updatedItems[idx].type === 'weekly') {
+          updatedItems[idx].weekData = {...updatedItems[idx].weekData, weekStreak: 0}
+        }
         setList(updatedItems)
       }
     }
