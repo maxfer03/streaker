@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import ItemBtns from "./ItemBtns";
 import { wait, today} from "./utils/functions";
 import { WEEKDAYS } from "./utils/const";
+import { useState } from "react";
 const WeeklyItem = ({idx}) => {
   const [items, setItems] = useRecoilState(listAtom)
 

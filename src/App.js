@@ -76,8 +76,9 @@ function App() {
       let timeDelta = timeDeltaEpoch / 1000
       let threshold
       if(item.type ==='daily'){
-        // threshold : 24 hours
-        threshold = 60 * 60 * 24
+        // threshold : 36 hours
+        threshold = 60 * 60 * (24+12)
+
       }
       else if (item.type ==='weekly') {
         // threshold : 7 days
