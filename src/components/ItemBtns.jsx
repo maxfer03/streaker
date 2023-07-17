@@ -25,7 +25,8 @@ const ItemBtns = ({idx, type}) => {
         let updateEpoch = Date.now()
         // let timeDeltaEpoch = updateEpoch - updatedItems[idx].lastUpdate
         // let timeDelta = new Date(timeDeltaEpoch)
-        const nextStreakVal = updatedItems[idx].weekData.weekStreak + 1
+        const weekStreak = updatedItems[idx].weekData.weekStreak
+        const nextStreakVal = weekStreak + 1
         const weekMin = updatedItems[idx].weekData.minObj
         if (nextStreakVal % weekMin === 0) {
           updatedItems[idx] = { ...updatedItems[idx], streak: updatedItems[idx].streak + 1 };
@@ -35,11 +36,19 @@ const ItemBtns = ({idx, type}) => {
         const todayIndex = WEEKDAYS.indexOf(today())
         let updatedWeek = [...updatedItems[idx].weekData.week]
         updatedWeek[todayIndex] = 1
+        const hasCompletedWeekMin = () => {
+          if (weekStreak % weekMin === 0 && weekStreak !== 0) {
+            let resetWeek = [0, 0, 0, 0, 0, 0, 0]
+            resetWeek[todayIndex] = 1
+            return resetWeek
+          }
+          return updatedWeek
+        }
         updatedItems[idx] = { ...updatedItems[idx],  
           weekData: { 
             ...updatedItems[idx].weekData,
             weekStreak: updatedItems[idx].weekData.weekStreak + 1,
-            week: nextStreakVal % weekMin === 0 ? [0, 0, 0, 0, 0, 0, 0] : updatedWeek
+            week: hasCompletedWeekMin()
           },
           lastUpdate: updateEpoch 
         };
