@@ -66,6 +66,9 @@ const ItemBtns = ({idx, type}) => {
       let timeDeltaEpoch = updateEpoch - updatedItems[idx].lastUpdate
       let timeDelta = new Date(timeDeltaEpoch)
       updatedItems[idx] = { ...updatedItems[idx], streak: 0, lastUpdate: updateEpoch };
+      if(updatedItems[idx].type === 'weekly') {
+        updatedItems[idx].weekData = {...updatedItems[idx].weekData, weekStreak: 0}
+      }
       return updatedItems;
     });
   }
