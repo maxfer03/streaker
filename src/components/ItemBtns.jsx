@@ -17,7 +17,6 @@ const ItemBtns = ({idx, type}) => {
 
       const timeSinceLastUpdate = (Date.now() - items[idx].lastUpdate) / 1000
       const oneDay = 60 * 60 * 24
-      console.log(items[idx])
       if (timeSinceLastUpdate >= oneDay || items[idx].streak === 0) {
         setDisabled(false)
       }
@@ -28,7 +27,6 @@ const ItemBtns = ({idx, type}) => {
     if(type === 'weekly') {
       const daysSinceLastUpdate = ((Date.now() - items[idx].lastUpdate) / 1000) / 60 / 60 / 24
       const secondsSinceLastUpdate = (Date.now() - items[idx].lastUpdate) / 1000
-      console.log(secondsSinceLastUpdate, daysSinceLastUpdate)
       if (daysSinceLastUpdate >= 7 || items[idx].streak === 0) {
         setDisabled(false)
       }
